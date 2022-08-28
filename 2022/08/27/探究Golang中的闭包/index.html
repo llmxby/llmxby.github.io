@@ -23,6 +23,7 @@
 <meta property="og:site_name" content="llmxby">
 <meta property="og:description" content="探究Golang中的闭包什么是闭包?先看一个简单的例子 1234567891011121314151617181920212223242526272829303132package mainimport (   &quot;fmt&quot;)func Fibonacci() func() int &amp;#123;   a, b :&#x3D; 0, 1   return func() int &amp;#123;">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://llmxby.com/img/%E6%8E%A2%E7%A9%B6Golang%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85/UML.jpg">
 <meta property="og:image" content="https://llmxby.com/img/%E6%8E%A2%E7%A9%B6Golang%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85/%E9%A3%9E%E4%B9%A620220828-205229.jpg">
 <meta property="og:image" content="https://llmxby.com/img/%E6%8E%A2%E7%A9%B6Golang%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85/ttt.svg">
 <meta property="og:image" content="https://llmxby.com/img/%E6%8E%A2%E7%A9%B6Golang%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85/t.png">
@@ -30,10 +31,10 @@
 <meta property="og:image" content="https://llmxby.com/img/%E6%8E%A2%E7%A9%B6Golang%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85/tttt.png">
 <meta property="og:image" content="https://llmxby.com/img/%E6%8E%A2%E7%A9%B6Golang%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85/ttttt.png">
 <meta property="article:published_time" content="2022-08-26T17:55:40.000Z">
-<meta property="article:modified_time" content="2022-08-28T13:11:26.698Z">
+<meta property="article:modified_time" content="2022-08-28T13:13:36.306Z">
 <meta property="article:author" content="llmxby">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://llmxby.com/img/%E6%8E%A2%E7%A9%B6Golang%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85/%E9%A3%9E%E4%B9%A620220828-205229.jpg">
+<meta name="twitter:image" content="https://llmxby.com/img/%E6%8E%A2%E7%A9%B6Golang%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85/UML.jpg">
   
   
   
@@ -291,7 +292,7 @@
 <p>那么回到最开始的问题：什么是闭包？</p>
 <p>go官方的解释是：Go 函数可以是一个闭包。闭包是一个函数值，它引用了函数体之外的变量。 这个函数可以对这个引用的变量进行访问和赋值；换句话说这个函数被“绑定”在这个变量上。</p>
 <p>简单来说，闭包是由函数和与其相关的引用环境组合而成的实体。</p>
-<p>![](..&#x2F;img&#x2F;探究Golang中的闭包&#x2F;UML 图.jpg)</p>
+<p><img src="/../img/%E6%8E%A2%E7%A9%B6Golang%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85/UML.jpg" srcset="/img/loading.gif" lazyload></p>
 <p>函数，指的是在闭包实际实现的时候，往往通过调用一个外部函数返回其内部函数来实现的。用户得到一个闭包，也等同于得到了这个内部函数，每次执行这个闭包就等同于执行内部函数。</p>
 <p>引用环境可以简单理解为在函数外部定义但在函数内被引用的变量。闭包跟函数最大的不同在于，当捕捉闭包的时候，它的所引用的外部变量会在捕捉时被确定，这样即便脱离了捕捉时的上下文，它也能照常运行。</p>
 <h2 id="闭包的意义"><a href="#闭包的意义" class="headerlink" title="闭包的意义"></a>闭包的意义</h2><p>我们会发现，使用普通函数和全局变量完全可以实现和闭包相同的功能<br>​	<strong>为什么不用全局变量？</strong></p>
