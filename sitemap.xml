@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://llmxby.com/baidu_verify_code-sBkiNSJEc8.html</loc>
+    <loc>https://llmxby.com/2022/08/27/%E6%8E%A2%E7%A9%B6Golang%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85/</loc>
     
     <lastmod>2022-08-28</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://llmxby.com/2022/08/27/%E6%8E%A2%E7%A9%B6Golang%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85/</loc>
+    <loc>https://llmxby.com/baidu_verify_code-sBkiNSJEc8.html</loc>
     
     <lastmod>2022-08-28</lastmod>
     
@@ -37,19 +37,10 @@
     <priority>0.6</priority>
   </url>
   
-  <url>
-    <loc>https://llmxby.com/2022/08/27/hello-world/</loc>
-    
-    <lastmod>2022-08-26</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
 
   <url>
     <loc>https://llmxby.com/</loc>
-    <lastmod>2022-08-28</lastmod>
+    <lastmod>2022-09-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
