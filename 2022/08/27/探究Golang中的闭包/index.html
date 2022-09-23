@@ -16,12 +16,12 @@
   <meta name="author" content="llmxby">
   <meta name="keywords" content="">
   
-    <meta name="description" content="探究Golang中的闭包什么是闭包?　　先看一个简单的例子 1234567891011121314151617181920212223242526272829303132package mainimport (   &quot;fmt&quot;)func Fibonacci() func() int &amp;#123;   a, b :&#x3D; 0, 1   return func() int &amp;#123;">
+    <meta name="description" content="探究Golang中的闭包什么是闭包?​		先看一个简单的例子 1234567891011121314151617181920212223242526272829303132package mainimport (   &quot;fmt&quot;)func Fibonacci() func() int &amp;#123;   a, b :&#x3D; 0, 1   return func() int &amp;#123">
 <meta property="og:type" content="article">
 <meta property="og:title" content="探究Golang中的闭包">
 <meta property="og:url" content="https://llmxby.com/2022/08/27/%E6%8E%A2%E7%A9%B6Golang%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85/index.html">
 <meta property="og:site_name" content="llmxby">
-<meta property="og:description" content="探究Golang中的闭包什么是闭包?　　先看一个简单的例子 1234567891011121314151617181920212223242526272829303132package mainimport (   &quot;fmt&quot;)func Fibonacci() func() int &amp;#123;   a, b :&#x3D; 0, 1   return func() int &amp;#123;">
+<meta property="og:description" content="探究Golang中的闭包什么是闭包?​		先看一个简单的例子 1234567891011121314151617181920212223242526272829303132package mainimport (   &quot;fmt&quot;)func Fibonacci() func() int &amp;#123;   a, b :&#x3D; 0, 1   return func() int &amp;#123">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://llmxby.com/img/%E6%8E%A2%E7%A9%B6Golang%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85/UML.jpg">
 <meta property="og:image" content="https://llmxby.com/img/%E6%8E%A2%E7%A9%B6Golang%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85/%E9%A3%9E%E4%B9%A620220828-205229.jpg">
@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://llmxby.com/img/%E6%8E%A2%E7%A9%B6Golang%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85/tttt.png">
 <meta property="og:image" content="https://llmxby.com/img/%E6%8E%A2%E7%A9%B6Golang%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85/ttttt.png">
 <meta property="article:published_time" content="2022-08-26T17:55:40.000Z">
-<meta property="article:modified_time" content="2022-09-18T16:43:38.039Z">
+<meta property="article:modified_time" content="2022-09-18T17:13:28.488Z">
 <meta property="article:author" content="llmxby">
 <meta property="article:tag" content="闭包">
 <meta property="article:tag" content="Go">
@@ -287,7 +287,7 @@
             
               <div class="markdown-body">
                 
-                <h1 id="探究Golang中的闭包"><a href="#探究Golang中的闭包" class="headerlink" title="探究Golang中的闭包"></a>探究Golang中的闭包</h1><h2 id="什么是闭包"><a href="#什么是闭包" class="headerlink" title="什么是闭包?"></a>什么是闭包?</h2><p>　　先看一个简单的例子</p>
+                <h1 id="探究Golang中的闭包"><a href="#探究Golang中的闭包" class="headerlink" title="探究Golang中的闭包"></a>探究Golang中的闭包</h1><h2 id="什么是闭包"><a href="#什么是闭包" class="headerlink" title="什么是闭包?"></a>什么是闭包?</h2><p>​		先看一个简单的例子</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs Go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>   <span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Fibonacci</span><span class="hljs-params">()</span></span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> <span class="hljs-type">int</span> &#123;<br>   a, b := <span class="hljs-number">0</span>, <span class="hljs-number">1</span><br>   <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> <span class="hljs-type">int</span> &#123;<br>      a, b = b, a+b<br>      <span class="hljs-keyword">return</span> a<br>   &#125;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>   f := Fibonacci()<br>   <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;<br>      fmt.Printf(<span class="hljs-string">&quot;Fibonacci: %d\n&quot;</span>, f())<br>   &#125;<br>&#125;<br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">Fibonacci: 1</span><br><span class="hljs-comment">Fibonacci: 1</span><br><span class="hljs-comment">Fibonacci: 2</span><br><span class="hljs-comment">Fibonacci: 3</span><br><span class="hljs-comment">Fibonacci: 5</span><br><span class="hljs-comment">Fibonacci: 8</span><br><span class="hljs-comment">Fibonacci: 13</span><br><span class="hljs-comment">Fibonacci: 21</span><br><span class="hljs-comment">Fibonacci: 34</span><br><span class="hljs-comment">Fibonacci: 55</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
 
 <p>　　这其实就是一个闭包的例子，我们可以发现，当一个函数引用了外部函数的一些变量时，在外部函数调用结束时，被引用的变量不会被释放。也就是说闭包捕获了这些变量，它不关心这些捕获了的变量是否已经超出了作用域，只要闭包还在使用它，这些变量就还会存在。</p>
@@ -464,6 +464,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/09/19/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/" title="踩坑记录">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">踩坑记录</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
