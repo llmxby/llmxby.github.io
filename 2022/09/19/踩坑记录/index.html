@@ -16,17 +16,17 @@
   <meta name="author" content="llmxby">
   <meta name="keywords" content="">
   
-    <meta name="description" content="简介​		本文主要用于记录一些平时编码中遇到的一些坑（不定期更新） 实例Unmarshal丢精度坑点​		在网上搜索map、json、struct相互转换的文章时，我们常常能够看到有许多的文章里都提到了用map[string]interface{}作为Unmarshal的接收参数，这种方法在大多数情况下都是可行的，但在某些情况下却会产生丢精度的问题。 1234567func main() &amp;#12">
+    <meta name="description" content="简介　　本文主要用于记录一些平时编码中遇到的一些坑（不定期更新） 实例Unmarshal丢精度坑点　　在网上搜索map、json、struct相互转换的文章时，我们常常能够看到有许多的文章里都提到了用map[string]interface{}作为Unmarshal的接收参数，这种方法在大多数情况下都是可行的，但在某些情况下却会产生丢精度的问题。 1234567func main() &amp;#123;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="踩坑记录">
 <meta property="og:url" content="https://llmxby.com/2022/09/19/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="llmxby">
-<meta property="og:description" content="简介​		本文主要用于记录一些平时编码中遇到的一些坑（不定期更新） 实例Unmarshal丢精度坑点​		在网上搜索map、json、struct相互转换的文章时，我们常常能够看到有许多的文章里都提到了用map[string]interface{}作为Unmarshal的接收参数，这种方法在大多数情况下都是可行的，但在某些情况下却会产生丢精度的问题。 1234567func main() &amp;#12">
+<meta property="og:description" content="简介　　本文主要用于记录一些平时编码中遇到的一些坑（不定期更新） 实例Unmarshal丢精度坑点　　在网上搜索map、json、struct相互转换的文章时，我们常常能够看到有许多的文章里都提到了用map[string]interface{}作为Unmarshal的接收参数，这种方法在大多数情况下都是可行的，但在某些情况下却会产生丢精度的问题。 1234567func main() &amp;#123;">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://llmxby.com/img/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/1.jpg">
 <meta property="og:image" content="https://llmxby.com/img/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/2.jpg">
 <meta property="article:published_time" content="2022-09-18T17:11:46.000Z">
-<meta property="article:modified_time" content="2022-09-18T17:58:56.312Z">
+<meta property="article:modified_time" content="2022-09-23T19:10:27.404Z">
 <meta property="article:author" content="llmxby">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary_large_image">
@@ -281,18 +281,18 @@
             
               <div class="markdown-body">
                 
-                <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>​		本文主要用于记录一些平时编码中遇到的一些坑（不定期更新）</p>
-<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><h2 id="Unmarshal丢精度"><a href="#Unmarshal丢精度" class="headerlink" title="Unmarshal丢精度"></a>Unmarshal丢精度</h2><h3 id="坑点"><a href="#坑点" class="headerlink" title="坑点"></a>坑点</h3><p>​		在网上搜索map、json、struct相互转换的文章时，我们常常能够看到有许多的文章里都提到了用map[string]interface{}作为Unmarshal的接收参数，这种方法在大多数情况下都是可行的，但在某些情况下却会产生丢精度的问题。</p>
+                <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>　　本文主要用于记录一些平时编码中遇到的一些坑（不定期更新）</p>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><h2 id="Unmarshal丢精度"><a href="#Unmarshal丢精度" class="headerlink" title="Unmarshal丢精度"></a>Unmarshal丢精度</h2><h3 id="坑点"><a href="#坑点" class="headerlink" title="坑点"></a>坑点</h3><p>　　在网上搜索map、json、struct相互转换的文章时，我们常常能够看到有许多的文章里都提到了用map[string]interface{}作为Unmarshal的接收参数，这种方法在大多数情况下都是可行的，但在某些情况下却会产生丢精度的问题。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs Go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	test := <span class="hljs-string">&quot;&#123;\&quot;id\&quot;:1888888888888888888&#125;&quot;</span><br>	mp := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-keyword">interface</span>&#123;&#125;)<br>	_ = json.Unmarshal([]<span class="hljs-type">byte</span>(test), &amp;mp)<br>	fmt.Printf(<span class="hljs-string">&quot;%v&quot;</span>, mp[<span class="hljs-string">&quot;id&quot;</span>])<br>&#125;<br><span class="hljs-comment">// 1.8888888888888888e+18</span><br></code></pre></td></tr></table></figure>
 
 <p><img src="/../img/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/1.jpg" srcset="/img/loading.gif" lazyload></p>
-<p>​		通过断点的方式我们发现上面的代码在经过了Unmarshal操作之后，原本json串中的数字由1888888888888888888变为了1888888888888888800，而正常打印的出来的结果则是1.8888888888888888e+18，这说明在Unmarshal的时候将id解析为了float64类型从而发生了精度丢失的情况。</p>
+<p>　　通过断点的方式我们发现上面的代码在经过了Unmarshal操作之后，原本json串中的数字由1888888888888888888变为了1888888888888888800，而正常打印的出来的结果则是1.8888888888888888e+18，这说明在Unmarshal的时候将id解析为了float64类型从而发生了精度丢失的情况。</p>
 <p><img src="/../img/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/2.jpg" srcset="/img/loading.gif" lazyload></p>
-<p>​		通过查看Unmarshal方法的注释我们可以发现对于一个numbers如果接收的类型是interface{}它会被解析为float64类型，这就会产生丢精度的风险。</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>​		对于上诉问题json包也提供了UseNumber这种方式来解决，具体代码如下所示</p>
+<p>　　通过查看Unmarshal方法的注释我们可以发现对于一个numbers如果接收的类型是interface{}它会被解析为float64类型，这就会产生丢精度的风险。</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>　　对于上诉问题json包也提供了UseNumber这种方式来解决，具体代码如下所示</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Go"><span class="hljs-keyword">var</span> batchDataFromJSON <span class="hljs-keyword">interface</span>&#123;&#125;<br>decoder := json.NewDecoder(bytes.NewReader([]<span class="hljs-type">byte</span>(batchData)))<br>decoder.UseNumber()<br>err = decoder.Decode(&amp;batchDataFromJSON)<br>tmpValue = batchDataFromJSON.(<span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-keyword">interface</span>&#123;&#125;)<br></code></pre></td></tr></table></figure>
 
-<p>​		通过观看源码我们可以发下UseNumber其实就是将numbers转interface{}时用一个自定义的Number类型替换了float64类型，而Number的底层数据类型是string，只是实现了一个转换函数</p>
+<p>　　通过观看源码我们可以发下UseNumber其实就是将numbers转interface{}时用一个自定义的Number类型替换了float64类型，而Number的底层数据类型是string，只是实现了一个转换函数</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs Go"><span class="hljs-comment">// UseNumber causes the Decoder to unmarshal a number into an interface&#123;&#125; as a</span><br><span class="hljs-comment">// Number instead of as a float64.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(dec *Decoder)</span></span> UseNumber() &#123; dec.d.useNumber = <span class="hljs-literal">true</span> &#125;<br><br><span class="hljs-comment">// A Number represents a JSON number literal.</span><br><span class="hljs-keyword">type</span> Number <span class="hljs-type">string</span><br><br><span class="hljs-comment">// String returns the literal text of the number.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(n Number)</span></span> String() <span class="hljs-type">string</span> &#123; <span class="hljs-keyword">return</span> <span class="hljs-type">string</span>(n) &#125;<br><br><span class="hljs-comment">// Float64 returns the number as a float64.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(n Number)</span></span> Float64() (<span class="hljs-type">float64</span>, <span class="hljs-type">error</span>) &#123;<br>	<span class="hljs-keyword">return</span> strconv.ParseFloat(<span class="hljs-type">string</span>(n), <span class="hljs-number">64</span>)<br>&#125;<br><br><span class="hljs-comment">// Int64 returns the number as an int64.</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(n Number)</span></span> Int64() (<span class="hljs-type">int64</span>, <span class="hljs-type">error</span>) &#123;<br>	<span class="hljs-keyword">return</span> strconv.ParseInt(<span class="hljs-type">string</span>(n), <span class="hljs-number">10</span>, <span class="hljs-number">64</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
