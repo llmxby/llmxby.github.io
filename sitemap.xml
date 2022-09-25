@@ -4,7 +4,7 @@
   <url>
     <loc>https://llmxby.com/2022/09/19/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/</loc>
     
-    <lastmod>2022-09-24</lastmod>
+    <lastmod>2022-09-25</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -13,7 +13,7 @@
   <url>
     <loc>https://llmxby.com/2022/09/19/Neovim%E9%85%8D%E7%BD%AE(%E7%BA%AF%E6%96%B0%E6%89%8B%E7%AF%87)/</loc>
     
-    <lastmod>2022-09-24</lastmod>
+    <lastmod>2022-09-25</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -65,13 +65,6 @@
 
   
   <url>
-    <loc>https://llmxby.com/tags/Go/</loc>
-    <lastmod>2022-09-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://llmxby.com/tags/vim/</loc>
     <lastmod>2022-09-25</lastmod>
     <changefreq>weekly</changefreq>
@@ -80,6 +73,13 @@
   
   <url>
     <loc>https://llmxby.com/tags/%E9%97%AD%E5%8C%85/</loc>
+    <lastmod>2022-09-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://llmxby.com/tags/Go/</loc>
     <lastmod>2022-09-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
